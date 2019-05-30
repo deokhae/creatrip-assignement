@@ -10,6 +10,10 @@ export default function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     image_path: {
       type: DataTypes.STRING,
       allowNull: false,

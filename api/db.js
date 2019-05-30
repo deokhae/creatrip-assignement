@@ -12,14 +12,27 @@ async function initDB(isDrop) {
 }
 
 async function createDummy() {
-  await user.create({
-    name: 'test',
+  const userName = 'test';
+  const dataCntUser = await user.count().then((c) => {
+    return c;
   });
 
-  await item.create({
-    name: 'test1',
-    image_path: 'https://www.creatrip.com:9999/uploads/500/20190207/新沙洞商圈0.jpg',
-  });
+  if (dataCntUser === 0) {
+    await user.create({
+      name: userName,
+    });
+
+    const dummyDataId = await user.findOne({ where: { name: userName } })
+      .then((project) => {
+        return project.get('id');
+      });
+
+    await item.create({
+      name: `test_${dummyDataId}`,
+      image_path: 'https://www.creatrip.com:9999/uploads/500/20190207/新沙洞商圈0.jpg',
+      user_id: dummyDataId,
+    });
+  }
 }
 
 export default {

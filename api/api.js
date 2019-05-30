@@ -7,7 +7,7 @@ const app = express();
 
 applyRoutes(app);
 
-db.initDB(true)
+db.initDB(false)
   .then(() => {
     return db.createDummy();
   })
